@@ -7,3 +7,17 @@ before_install:
 
 script:
   - docker run thcrnk/docker-playground npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "applicationName"
+  env: "applicationName-env"
+  bucket_name: "bucketName created with the beanstalk name"
+  bucket_path: "applicationName"
+  on:
+    branch: master
+
+  access_key_id: "$AWS_ACCESS_KEY" # this comes from Travis env variables
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
